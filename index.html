@@ -39,7 +39,7 @@
             document.body.appendChild(renderer.domElement);
 
             let loader = new THREE.OBJLoader();
-            loader.load('path/to/your/eyeshadow.obj', function(object) {
+            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/eyeshadow.obj?v=1713748352831', function(object) {
                 scene.add(object);
                 animate();
             }, onProgress, onError);
