@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>3D Model with Three.js</title>
+    <title>3D Model with Three.glb</title>
     <style>
         body, html { 
             height: 100%; 
@@ -21,10 +21,13 @@
     </style>
 </head>
 <body>
+    <!-- Three.js library -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.min.js"></script>
+    <!-- GLTFLoader script -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/GLTFLoader.js"></script>
     <!-- Include the OrbitControls script -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.140.0/examples/js/loaders/OBJLoader.js"></script>
+
     <script>
         let scene, camera, renderer, controls;
 
@@ -46,11 +49,12 @@
             controls.dampingFactor = 0.25;
             controls.screenSpacePanning = false;
 
-            let loader = new THREE.OBJLoader();
-            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/eyeshadow.obj?v=1713748352831', function(object) {
-            object.scale.set(5, 5, 5);
-            scene.add(object);
-            animate();
+            let loader = new THREE.GLTFLoader();
+            loader.load('YOUR_MODEL_URL.glb', function(gltf) {
+                let model = gltf.scene;
+                model.scale.set(5, 5, 5); // Scale the model to a visible size
+                scene.add(model);
+                animate();
             }, onProgress, onError);
         }
 
