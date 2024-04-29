@@ -50,7 +50,7 @@
             controls.screenSpacePanning = false;
 
             let loader = new THREE.GLTFLoader();
-            loader.load('YOUR_MODEL_URL.glb', function(gltf) {
+            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/untitled.glb?v=1714423829618', function(gltf) {
                 let model = gltf.scene;
                 model.scale.set(5, 5, 5); // Scale the model to a visible size
                 scene.add(model);
@@ -59,7 +59,7 @@
         }
 
         function lights() {
-            let ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+            let ambientLight = new THREE.AmbientLight(0x404040,2); // Soft white light
             scene.add(ambientLight);
         }
 
