@@ -31,45 +31,43 @@
     <script>
         let scene, camera, renderer, controls;
 
-        function init() {
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xdddddd);
+       function init() {
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xdddddd);
 
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 0, 4); // Simple position to start
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 4);
 
-            lights();
-            renderer = new THREE.WebGLRenderer({antialias: true});
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
+    lights();
+    renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.physicallyCorrectLights = true; // Enable physically correct lighting
+    document.body.appendChild(renderer.domElement);
 
-            // Initialize OrbitControls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-            controls.dampingFactor = 0.25;
-            controls.screenSpacePanning = false;
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.25;
 
-            let loader = new THREE.GLTFLoader();
-            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/untitled.glb?v=1714423829618', function(gltf) {
-                let model = gltf.scene;
-                model.scale.set(10, 10, 10); // Scale the model to a visible size
-                scene.add(model);
-                animate();
-            }, onProgress, onError);
-        }
+    let loader = new THREE.GLTFLoader();
+    loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/untitled.glb?v=1714423829618', function(gltf) {
+        let model = gltf.scene;
+        model.scale.set(10, 10, 10);
+        scene.add(model);
+        animate();
+    }, onProgress, onError);
+}
 
         function lights() {
-          let ambientLight = new THREE.AmbientLight(0x404040); // Reduced intensity for a more subtle effect
-          let directionalLight = new THREE.DirectionalLight(0xffffff, 5); // Less intense directional light
-          let pointLight = new THREE.PointLight(0xffffff, 1);
-          pointLight.position.set(0, 5, 0);
-          directionalLight.position.set(0, 0, 5); // Keep the position
-          scene.add(directionalLight);
-          scene.add(ambientLight);
-          scene.add(pointLight);
-          
-          
-        }
+    let ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+    let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(5, 5, 5); // Adjusted position
+    let pointLight = new THREE.PointLight(0xffffff, 1, 100);
+    pointLight.position.set(0, 20, 20); // Adjusted for potential higher impact
+
+    scene.add(directionalLight);
+    scene.add(ambientLight);
+    scene.add(pointLight);
+}
 
         function animate() {
             requestAnimationFrame(animate);
