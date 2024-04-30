@@ -58,11 +58,11 @@
 }
 
         function lights() {
-    let ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+    let ambientLight = new THREE.AmbientLight(0x404040, 10);
     let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(5, 5, 5); // Adjusted position
     let pointLight = new THREE.PointLight(0xffffff, 1, 100);
-    pointLight.position.set(0, 20, 20); // Adjusted for potential higher impact
+    pointLight.position.set(25, 10, 5); // Adjusted for potential higher impact
 
     scene.add(directionalLight);
     scene.add(ambientLight);
