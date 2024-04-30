@@ -74,8 +74,8 @@
         }
 
         function lights() {
-            let ambientLight = new THREE.AmbientLight(0x404040, 10);
-            let directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            let ambientLight = new THREE.AmbientLight(0x404040, 50);
+            let directionalLight = new THREE.DirectionalLight(0xffffff, 30);
             directionalLight.position.set(5, 5, 5);
             scene.add(directionalLight);
             scene.add(ambientLight);
