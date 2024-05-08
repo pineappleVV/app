@@ -24,8 +24,19 @@
             top: 15px; /* Adjust the position as needed */
             left: 40px; /* Adjust the position as needed */
             width: 200px; /* Adjust the width */
-        height: 200px; /* Adjust the height */
-        z-index: 999; /* Ensure the image is above the canvas */
+            height: 200px; /* Adjust the height */
+            z-index: 999; /* Ensure the image is above the canvas */
+        }
+        .red-circle {
+            position: absolute;
+            top: 190px; /* Adjust the position as needed */
+            left: 40px; /* Adjust the position as needed */
+            width: 20px; /* Adjust the width */
+            height: 20px; /* Adjust the height */
+            background-color: red;
+            border-radius: 50%; /* Make it a circle */
+            cursor: pointer; /* Change cursor to pointer */
+            z-index: 1000; /* Ensure the circle is above the image */
         }
     </style>
 </head>
@@ -76,39 +87,40 @@
             loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/swan.glb?v=1715132257838', function(gltf) {
                 let model = gltf.scene;
                 model.scale.set(3, 3, 3);
-                model.name = "eyeshadow";
+                model.name = "swan";
+                scene.add(model);
+            }, onProgress, onError);
+          
+            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/temple2.glb?v=1714870780363', function(gltf) {
+                let model = gltf.scene;
+                model.position.set(-2, 0.3, -2);
+                model.scale.set(20, 20, 20);
+                model.name = "temple";
+                scene.add(model);
+            }, onProgress, onError);
+          
+            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/flower.glb?v=1714858751945', function(gltf) {
+                let model = gltf.scene;
+                model.position.set(1, 0, -2);
+                model.scale.set(2, 2, 2);
+                model.name = "flower";
+                scene.add(model);
+            }, onProgress, onError);
+          
+            loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/starnew.glb?v=1715130773739', function(gltf) {
+                let model = gltf.scene;
+                model.position.set(-0.6, -0.4, -1.5);
+                model.scale.set(0.5, 0.5, 0.5);
+                model.name = "star";
                 scene.add(model);
                 animate();
             }, onProgress, onError);
-          
-          loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/temple2.glb?v=1714870780363', function(gltf) {
-          let model2 = gltf.scene;
-          model2.position.set(-2, 0.3, -2);
-          model2.scale.set(20,20,20); // Set scale as needed
 
-          model2.name = "temple"; // Give it a unique name
-          scene.add(model2);
-    },    onProgress, onError);
-          
-          loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/flower.glb?v=1714858751945', function(gltf) {
-          let model2 = gltf.scene;
-          model2.position.set(1, 0, -2);
-          model2.scale.set(2,2,2); // Set scale as needed
-
-          model2.name = "flower"; // Give it a unique name
-          scene.add(model2);
-    },    onProgress, onError);
-          
-           loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/starnew.glb?v=1715130773739', function(gltf) {
-          let model2 = gltf.scene;
-          model2.position.set(-0.6, -0.4, -1.5);
-          model2.scale.set(0.5,0.5,0.5); // Set scale as needed
-
-          model2.name = "star"; // Give it a unique name
-          scene.add(model2);
-    },    onProgress, onError);
-          
-          }
+            // Add event listener to the red circle
+            document.querySelector('.red-circle').addEventListener('click', () => {
+                sound.play();
+            });
+        }
 
         function lights() {
             let ambientLight = new THREE.AmbientLight(0x404040, 50);
@@ -116,32 +128,12 @@
             directionalLight.position.set(5, 5, 5);
             scene.add(ambientLight);
             scene.add(directionalLight);
-            
         }
 
         function animate() {
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
-        }
-
-        function onDocumentMouseDown(event) {
-            event.preventDefault();
-            mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
-            mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
-
-            let intersects = raycaster.intersectObjects(scene.children, true);
-            if (intersects.length > 0) {
-                let obj = intersects[0].object;
-                while (obj.parent && !obj.name) {
-                    obj = obj.parent;
-                }
-                if (obj.name === "clickableModel") {
-                    sound.play();
-                }
-            }
         }
 
         function onProgress(xhr) {
@@ -152,11 +144,11 @@
             console.error('An error happened', error);
         }
 
-        window.addEventListener('mousedown', onDocumentMouseDown, false);
-
         init();
     </script>
     <!-- Image overlay -->
     <img src="https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/title.png?v=1715140219723" alt="Image Overlay" class="image-overlay">
+    <!-- Red circle -->
+    <div class="red-circle"></div>
 </body>
 </html>
