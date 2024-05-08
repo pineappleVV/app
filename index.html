@@ -29,7 +29,7 @@
         }
         .red-circle {
             position: absolute;
-            top: 190px; /* Adjust the position as needed */
+            top: 70px; /* Adjust the position as needed */
             left: 40px; /* Adjust the position as needed */
             width: 20px; /* Adjust the width */
             height: 20px; /* Adjust the height */
@@ -118,8 +118,17 @@
           
           loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/manatee.glb?v=1715146271222', function(gltf) {
                 let model = gltf.scene;
-                model.position.set(-2, 0, -2);
+                model.position.set(-2.3, 0.5, -2);
                 model.scale.set(2, 2, 2);
+                model.name = "star";
+                scene.add(model);
+                animate();
+            }, onProgress, onError);
+          
+          loader.load('https://cdn.glitch.global/f6749c98-3695-4f26-9fc5-1126c09a9b99/room.glb?v=1715146077190', function(gltf) {
+                let model = gltf.scene;
+                model.position.set(23, 0.5, -5);
+                model.scale.set(20, 20, 20);
                 model.name = "star";
                 scene.add(model);
                 animate();
